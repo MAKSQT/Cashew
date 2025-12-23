@@ -1,0 +1,32 @@
+name: flutter_charset_detector_web
+description: Web implementation of the flutter_charset_detector plugin.
+version: 2.0.0
+homepage: https://github.com/amake/flutter_charset_detector
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+  flutter: '>=3.3.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
+  flutter_charset_detector_platform_interface: ^1.1.0
+  # flutter_charset_detector_platform_interface:
+    # path: ../flutter_charset_detector_platform_interface
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  assets:
+    - packages/flutter_charset_detector_web/assets/web/jschardet.min.js
+  plugin:
+    implements: flutter_charset_detector
+    platforms:
+      web:
+        pluginClass: CharsetDetectorWeb
+        fileName: flutter_charset_detector_web.dart
