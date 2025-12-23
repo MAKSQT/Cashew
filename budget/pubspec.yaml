@@ -116,6 +116,10 @@ flutter_icons:
     background_color: "#ffffff"
     theme_color: "#5f85c2"
 
+dependency_overrides:
+  flutter_charset_detector_web:
+    path: packages/flutter_charset_detector_web
+
 dev_dependencies:
   drift_dev: ^2.14.0
   build_runner: ^2.4.7
