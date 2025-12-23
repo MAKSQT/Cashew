@@ -2,12 +2,14 @@ import 'package:budget/functions.dart';
 import 'package:budget/main.dart';
 import 'package:budget/pages/editCategoriesPage.dart';
 import 'package:budget/pages/exchangeRatesPage.dart';
+import 'package:budget/pages/activityPage.dart';
 import 'package:budget/struct/defaultPreferences.dart';
 import 'package:budget/struct/navBarIconsData.dart';
 import 'package:budget/struct/settings.dart';
 import 'package:budget/widgets/accountAndBackup.dart';
 import 'package:budget/widgets/animatedExpanded.dart';
 import 'package:budget/widgets/navigationFramework.dart';
+import 'package:budget/widgets/openContainerNavigation.dart';
 import 'package:budget/widgets/openBottomSheet.dart';
 import 'package:budget/widgets/tappable.dart';
 import 'package:budget/widgets/timeDigits.dart';
@@ -280,9 +282,47 @@ class NavigationSidebarState extends State<NavigationSidebar> {
                                 navBarIconDataKey: "scheduled",
                                 currentPageIndex: selectedIndex,
                               ),
+                              NavigationSidebarButton(
+                                icon: appStateSettings["outlinedIcons"]
+                                    ? Icons.calendar_month_outlined
+                                    : Icons.calendar_month_rounded,
+                                label: "calendar".tr(),
+                                isSelected: false,
+                                onTap: () async {
+                                  isCalendarOpened = true;
+                                  try {
+                                    if (navigatorKey.currentContext != null) {
+                                      await showCustomDatePicker(
+                                        navigatorKey.currentContext!,
+                                        DateTime.now(),
+                                        cancelText: "",
+                                        helpText: "",
+                                        confirmText: "close".tr(),
+                                      );
+                                    }
+                                  } finally {
+                                    isCalendarOpened = false;
+                                  }
+                                },
+                              ),
                               NavigationSidebarButtonWithNavBarIconData(
                                 navBarIconDataKey: "loans",
                                 currentPageIndex: selectedIndex,
+                              ),
+                              OpenContainerNavigation(
+                                openPage: ActivityPage(),
+                                closedColor:
+                                    Theme.of(context).colorScheme.background,
+                                button: (openContainer) {
+                                  return NavigationSidebarButton(
+                                    icon: appStateSettings["outlinedIcons"]
+                                        ? Icons.ballot_outlined
+                                        : Icons.ballot_rounded,
+                                    label: "transaction-activity-log".tr(),
+                                    isSelected: false,
+                                    onTap: openContainer,
+                                  );
+                                },
                               ),
                               // if (notificationsGlobalEnabled)
                               //   NavigationSidebarButtonWithNavBarIconData(
